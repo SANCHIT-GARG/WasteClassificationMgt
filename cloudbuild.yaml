@@ -7,13 +7,13 @@ steps:
    waitFor: ['-']
    
 # push the container image to Container Registry
-  - name: 'gcr.io/cloud-builders/docker'
+ - name: 'gcr.io/cloud-builders/docker'
     args: ['push', 'gcr.io/sanchit909090/wcm:latest']
     id: 'push-image'
     waitFor: ['build-image']
     
 # Create an endpoint.
-- name: 'gcr.io/sanchit909090/wcm:latest'
+ - name: 'gcr.io/sanchit909090/wcm:latest'
   entrypoint: 'python'
   args: ['build/utils.py',
           '--mode', 'create-endpoint',

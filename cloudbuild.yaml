@@ -2,27 +2,32 @@ steps:
 
 # Build a docker image
  - name: 'gcr.io/cloud-builders/docker'
-   args: [ 'build', '-t', 'gcr.io/sanchit909090/wcm:latest', '.']
+   args: ['build', '-t', 'gcr.io/sanchit909090/wcm:latest', '.']
    id: 'build-image'
    waitFor: ['-']
    
+ - name: 'gcr.io/cloud-builders/docker'
+   args: ['push', 'gcr.io/sanchit909090/wcm:latest']
+   id: 'push-image'
+   waitFor: ['build-image']   
+   
+   
 # push the container image to Container Registry
  - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', 'gcr.io/sanchit909090/wcm:latest']
-    id: 'push-image'
-    waitFor: ['build-image']
+   args: ['push', 'gcr.io/sanchit909090/wcm:latest']
+   id: 'push-image'
+   waitFor: ['build-image']
     
 # Create an endpoint.
  - name: 'gcr.io/sanchit909090/wcm:latest'
-  entrypoint: 'python'
-  args: ['build/utils.py',
+   entrypoint: 'python'
+   args: ['build/utils.py',
           '--mode', 'create-endpoint',
           '--project', '$_PROJECT',
           '--region', '$_REGION',
           '--endpoint-display-name', '$_ENDPOINT_DISPLAY_NAME']
-  dir: 'WasteClassificationMgt'
-  id: 'Create Endpoint'
-  waitFor: ['push-image']
+   id: 'Create Endpoint'
+   waitFor: ['push-image']
   
 images:
-  - 'gcr.io/sanchit909090/wcm:latest'
+ - 'gcr.io/sanchit909090/wcm:latest'

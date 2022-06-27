@@ -7,9 +7,9 @@ steps:
 
 # Build a docker image
  - name: 'gcr.io/cloud-builders/docker'
-   args: [ 'build', '-t', 'gcr.io/$PROJECT_ID/wcm', '.' , '-f', 'Dockerfile']
+   args: [ 'build', '-t', 'gcr.io/sanchit909090/wcm', '.' , '-f', 'Dockerfile']
 # push the container image to Container Registry
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', 'gcr.io/$PROJECT_ID/wcm']
+    args: ['push', 'gcr.io/sanchit909090/wcm']
 images:
-  - 'gcr.io/$PROJECT_ID/wcm'
+  - 'gcr.io/sanchit909090/wcm'

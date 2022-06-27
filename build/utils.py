@@ -42,15 +42,15 @@ def get_args():
         type=str,
     )
     
-    parser.add_argument(
-        '--pipeline-name', 
-        type=str,
-    )
+#     parser.add_argument(
+#         '--pipeline-name', 
+#         type=str,
+#     )
     
-    parser.add_argument(
-        '--pipelines-store', 
-        type=str,
-    )
+#     parser.add_argument(
+#         '--pipelines-store', 
+#         type=str,
+#     )
 
     return parser.parse_args()
 
@@ -99,11 +99,11 @@ def deploy_model(project, region, endpoint_display_name, model_display_name, ser
     return deployed_model
 
 
-def compile_pipeline(pipeline_name):
-    from src.tfx_pipelines import runner
-    pipeline_definition_file = f"{pipeline_name}.json"
-    pipeline_definition = runner.compile_training_pipeline(pipeline_definition_file)
-    return pipeline_definition
+# def compile_pipeline(pipeline_name):
+#     from src.tfx_pipelines import runner
+#     pipeline_definition_file = f"{pipeline_name}.json"
+#     pipeline_definition = runner.compile_training_pipeline(pipeline_definition_file)
+#     return pipeline_definition
 
     
 
@@ -145,11 +145,11 @@ def main():
             serving_resources_spec
         )
         
-    elif args.mode == 'compile-pipeline':
-        if not args.pipeline_name:
-            raise ValueError("pipeline-name must be supplied.")
+#     elif args.mode == 'compile-pipeline':
+#         if not args.pipeline_name:
+#             raise ValueError("pipeline-name must be supplied.")
             
-        result = compile_pipeline(args.pipeline_name)
+#         result = compile_pipeline(args.pipeline_name)
 
     else:
         raise ValueError(f"Invalid mode {args.mode}.")

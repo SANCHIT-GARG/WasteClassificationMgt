@@ -1,0 +1,35 @@
+steps:
+
+# Clone the repository.
+- name: 'gcr.io/cloud-builders/git'
+  args: ['clone', '--single-branch', '--branch',
+         '$_BRANCH', '$_REPO_URL',
+         '--depth', '1',
+         '--verbose']
+  id: 'Clone Repository'
+  
+# Create an endpoint.
+- name: '$_CICD_IMAGE_URI'
+  entrypoint: 'python'
+  args: ['build/utils.py',
+          '--mode', 'create-endpoint',
+          '--project', '$_PROJECT',
+          '--region', '$_REGION',
+          '--endpoint-display-name', '$_ENDPOINT_DISPLAY_NAME']
+  dir: 'mlops-with-vertex-ai'
+  id: 'Create Endpoint'
+  waitFor: ['Test Model Artifact']
+  
+# Deploy the model.
+- name: '$_CICD_IMAGE_URI'
+  entrypoint: 'python'
+  args: ['build/utils.py',
+          '--mode', 'deploy-model',
+          '--project', '$_PROJECT',
+          '--region', '$_REGION',
+          '--endpoint-display-name', '$_ENDPOINT_DISPLAY_NAME',
+          '--model-display-name', '$_MODEL_DISPLAY_NAME'
+          ]
+  dir: 'mlops-with-vertex-ai'
+  id: 'Deploy Model'
+  waitFor: ['Create Endpoint']

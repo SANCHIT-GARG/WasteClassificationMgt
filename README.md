@@ -1,3 +1,3 @@
 # WasteClassificationMgt
-MLE Project for Waste Classificaiton Management
+MLE Project for Waste Classificaiton Management.
 

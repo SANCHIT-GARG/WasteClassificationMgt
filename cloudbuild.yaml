@@ -6,12 +6,6 @@ steps:
    id: 'build-image'
    waitFor: ['-']
    
- - name: 'gcr.io/cloud-builders/docker'
-   args: ['push', 'gcr.io/sanchit909090/wcm:latest']
-   id: 'push-image'
-   waitFor: ['build-image']   
-   
-   
 # push the container image to Container Registry
  - name: 'gcr.io/cloud-builders/docker'
    args: ['push', 'gcr.io/sanchit909090/wcm:latest']

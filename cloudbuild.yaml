@@ -24,17 +24,16 @@ steps:
    waitFor: ['push-image']
    
 # Deploy the model.
-- name: 'gcr.io/sanchit909090/wcm:latest'
-  entrypoint: 'python'
-  args: ['build/utils.py',
+ - name: 'gcr.io/sanchit909090/wcm:latest'
+   entrypoint: 'python'
+   args: ['build/utils.py',
           '--mode', 'deploy-model',
           '--project', '$_PROJECT',
           '--region', '$_REGION',
           '--endpoint-display-name', '$_ENDPOINT_DISPLAY_NAME',
-          '--model-display-name', '$_MODEL_DISPLAY_NAME'
-          ]
-  id: 'Deploy Model'
-  waitFor: ['Create Endpoint']
-  
+          '--model-display-name', '$_MODEL_DISPLAY_NAME']
+   id: 'Deploy Endpoint'
+   waitFor: ['Create Endpoint']
+
 images:
  - 'gcr.io/sanchit909090/wcm:latest'

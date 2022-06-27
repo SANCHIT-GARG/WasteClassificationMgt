@@ -1,15 +1,11 @@
 steps:
 
-# Clone the repository.
-- name: 'gcr.io/cloud-builders/git'
-  args: ['clone', 'https://github.com/SANCHIT-GARG/WasteClassificationMgt.git']
-  id: 'Clone Repository'
-
 # Build a docker image
  - name: 'gcr.io/cloud-builders/docker'
-   args: [ 'build', '-t', 'Dockerfile', '.']
+   args: [ 'build', '-t', 'gcr.io/sanchit909090/wcm:latest', '.']
+   id: 'build-image'
 # push the container image to Container Registry
 #   - name: 'gcr.io/cloud-builders/docker'
 #     args: ['push', 'gcr.io/sanchit909090/wcm']
 images:
-  - 'gcr.io/sanchit909090/wcm'
+  - 'gcr.io/sanchit909090/wcm:latest'

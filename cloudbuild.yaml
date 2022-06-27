@@ -19,7 +19,7 @@ steps:
           '--mode', 'create-endpoint',
           '--project', 'sanchit909090',
           '--region', 'us-central1',
-          '--endpoint-display-name', '$_ENDPOINT_DISPLAY_NAME']
+          '--endpoint-display-name', 'wcm-endpoint']
    id: 'Create Endpoint'
    waitFor: ['push-image']
    
@@ -30,8 +30,8 @@ steps:
           '--mode', 'deploy-model',
           '--project', 'sanchit909090',
           '--region', 'us-central1',
-          '--endpoint-display-name', '$_ENDPOINT_DISPLAY_NAME',
-          '--model-display-name', '$_MODEL_DISPLAY_NAME']
+          '--endpoint-display-name', 'wcm-endpoint',
+          '--model-display-name', 'wcm-model']
    id: 'Deploy Endpoint'
    waitFor: ['Create Endpoint']
 

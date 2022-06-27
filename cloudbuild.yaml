@@ -12,6 +12,21 @@ steps:
    id: 'push-image'
    waitFor: ['build-image']
     
+# Train the model.
+ - name: 'gcr.io/sanchit909090/wcm:latest'
+   entrypoint: 'python'
+   args: ['build/task.py',
+          '--mode', 'train-model',
+          '--project', 'sanchit909090',
+          '--region', 'us-central1',
+          '--job-name', 'custom_training',
+          '--script_path', 'build/task.py',
+          '--container_uri' 'us-docker.pkg.dev/vertex-ai/training/tf-cpu.2-8:latest',
+          '--model_serving_container_image_uri', 'us-docker.pkg.dev/vertex-ai/prediction/tf2-cpu.2-8:latest',
+          '--model-display-name', 'wcm-model']
+   id: 'Train Model'
+   waitFor: ['push-image']
+
 # Create an endpoint.
  - name: 'gcr.io/sanchit909090/wcm:latest'
    entrypoint: 'python'
@@ -21,7 +36,7 @@ steps:
           '--region', 'us-central1',
           '--endpoint-display-name', 'wcm-endpoint']
    id: 'Create Endpoint'
-   waitFor: ['push-image']
+   waitFor: ['Train Model']
    
 # Deploy the model.
  - name: 'gcr.io/sanchit909090/wcm:latest'

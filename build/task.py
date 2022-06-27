@@ -6,19 +6,19 @@ import os
 import sys
 tfds.disable_progress_bar()
 
-parser = argparse.ArgumentParser()
-parser.add_argument('--lr', dest='lr',
-                    default=0.01, type=float,
-                    help='Learning rate.')
-parser.add_argument('--epochs', dest='epochs',
-                    default=1, type=int,
-                    help='Number of epochs.')
-parser.add_argument('--steps', dest='steps',
-                    default=200, type=int,
-                    help='Number of steps per epoch.')
-parser.add_argument('--distribute', dest='distribute', type=str, default='single',
-                    help='distributed training strategy')
-args = parser.parse_args()
+# parser = argparse.ArgumentParser()
+# parser.add_argument('--lr', dest='lr',
+#                     default=0.01, type=float,
+#                     help='Learning rate.')
+# parser.add_argument('--epochs', dest='epochs',
+#                     default=1, type=int,
+#                     help='Number of epochs.')
+# parser.add_argument('--steps', dest='steps',
+#                     default=200, type=int,
+#                     help='Number of steps per epoch.')
+# parser.add_argument('--distribute', dest='distribute', type=str, default='single',
+#                     help='distributed training strategy')
+# args = parser.parse_args()
 
 print('Python Version = {}'.format(sys.version))
 print('TensorFlow Version = {}'.format(tf.__version__))
@@ -120,7 +120,7 @@ with strategy.scope():
 
 # The patience parameter is the amount of epochs to check for improvement
 early_stop = tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=10)
-model.fit(x = training_set, validation_data = test_set, epochs=args.epochs, callbacks=[early_stop])
+model.fit(x = training_set, validation_data = test_set, epochs=1, callbacks=[early_stop])
     
 ##### model.fit(x=train_dataset, epochs=args.epochs, steps_per_epoch=args.steps)
 

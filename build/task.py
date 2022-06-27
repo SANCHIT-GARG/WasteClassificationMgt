@@ -26,17 +26,17 @@ print('TF_CONFIG = {}'.format(os.environ.get('TF_CONFIG', 'Not found')))
 print('DEVICES', device_lib.list_local_devices())
 
 # Single Machine, single compute device
-if args.distribute == 'single':
-    if tf.test.is_gpu_available():
-        strategy = tf.distribute.OneDeviceStrategy(device="/gpu:0")
-    else:
-        strategy = tf.distribute.OneDeviceStrategy(device="/cpu:0")
-# Single Machine, multiple compute device
-elif args.distribute == 'mirror':
-    strategy = tf.distribute.MirroredStrategy()
-# Multiple Machine, multiple compute device
-elif args.distribute == 'multi':
-    strategy = tf.distribute.experimental.MultiWorkerMirroredStrategy()
+# if args.distribute == 'single':
+#     if tf.test.is_gpu_available():
+#         strategy = tf.distribute.OneDeviceStrategy(device="/gpu:0")
+#     else:
+#         strategy = tf.distribute.OneDeviceStrategy(device="/cpu:0")
+# # Single Machine, multiple compute device
+# elif args.distribute == 'mirror':
+#     strategy = tf.distribute.MirroredStrategy()
+# # Multiple Machine, multiple compute device
+# elif args.distribute == 'multi':
+#     strategy = tf.distribute.experimental.MultiWorkerMirroredStrategy()
 
 # Multi-worker configuration
 print('num_replicas_in_sync = {}'.format(strategy.num_replicas_in_sync))
@@ -111,11 +111,11 @@ def build_model():
 
 # train_dataset = make_datasets_unbatched().batch(GLOBAL_BATCH_SIZE)
 
-with strategy.scope():
+# with strategy.scope():
   # Creation of dataset, and model building/compiling need to be within
   # `strategy.scope()`.
     # model = build_and_compile_cnn_model()
-    model = build_model()
+model = build_model()
 
 
 # The patience parameter is the amount of epochs to check for improvement

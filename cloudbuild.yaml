@@ -21,7 +21,7 @@ steps:
           '--region', 'us-central1',
           '--job-name', 'custom_training',
           '--script_path', 'https://raw.githubusercontent.com/SANCHIT-GARG/WasteClassificationMgt/main/build/task.py',
-          '--container_uri' 'us-docker.pkg.dev/vertex-ai/training/tf-cpu.2-8:latest',
+          '--container_uri', 'us-docker.pkg.dev/vertex-ai/training/tf-cpu.2-8:latest',
           '--model_serving_container_image_uri', 'us-docker.pkg.dev/vertex-ai/prediction/tf2-cpu.2-8:latest',
           '--model-display-name', 'wcm-model']
    id: 'Train Model'

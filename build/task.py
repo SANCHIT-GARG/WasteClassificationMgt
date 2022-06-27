@@ -39,7 +39,7 @@ print('DEVICES', device_lib.list_local_devices())
 #     strategy = tf.distribute.experimental.MultiWorkerMirroredStrategy()
 
 # Multi-worker configuration
-print('num_replicas_in_sync = {}'.format(strategy.num_replicas_in_sync))
+# print('num_replicas_in_sync = {}'.format(strategy.num_replicas_in_sync))
 
 # Preparing dataset
 # BUFFER_SIZE = 10000

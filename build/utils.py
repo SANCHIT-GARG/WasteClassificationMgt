@@ -55,7 +55,7 @@ def get_args():
     return parser.parse_args()
 
 
-def create_endpoint(project, region, endpoint_display_name):
+def create_endpoint(project='sanchit909090', region='us-central1', endpoint_display_name):
     logging.info(f"Creating endpoint {endpoint_display_name}")
     vertex_ai.init(
         project=project,
@@ -76,7 +76,7 @@ def create_endpoint(project, region, endpoint_display_name):
     return endpoint
 
 
-def deploy_model(project, region, endpoint_display_name, model_display_name, serving_resources_spec):
+def deploy_model(project='sanchit909090', region='us-central1', endpoint_display_name, model_display_name, serving_resources_spec):
     logging.info(f"Deploying model {model_display_name} to endpoint {endpoint_display_name}")
     vertex_ai.init(
         project=project,

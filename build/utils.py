@@ -76,25 +76,26 @@ def get_args():
 
 
 def train_model(display_name, script_path, container_uri, model_serving_container_image_uri):
-    vertex_ai.CustomTrainingJob(
+    model = vertex_ai.CustomTrainingJob(
         display_name=job-name,
         script_path=script_path,
         container_uri=container_uri,
         model_serving_container_image_uri=model_serving_container_image_uri
     )
     
-    endpoints = vertex_ai.Endpoint.list(
-        filter=f'display_name={endpoint_display_name}', 
-        order_by="update_time")
+#     endpoints = vertex_ai.Endpoint.list(
+#         filter=f'display_name={endpoint_display_name}', 
+#         order_by="update_time")
     
-    if len(endpoints) > 0:
-        logging.info(f"Endpoint {endpoint_display_name} already exists.")
-        endpoint = endpoints[-1]
-    else:
-        endpoint = vertex_ai.Endpoint.create(endpoint_display_name)
-    logging.info(f"Endpoint is ready.")
-    logging.info(endpoint.gca_resource)
-    return endpoint
+#     if len(endpoints) > 0:
+#         logging.info(f"Endpoint {endpoint_display_name} already exists.")
+#         endpoint = endpoints[-1]
+#     else:
+#         endpoint = vertex_ai.Endpoint.create(endpoint_display_name)
+#     logging.info(f"Endpoint is ready.")
+#     logging.info(endpoint.gca_resource)
+#     return endpoint
+    return model
 
 
 

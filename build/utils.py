@@ -204,19 +204,13 @@ def main():
             args.container_uri,
             args.model_serving_container_image_uri)
 
-        EPOCHS = 20
-        STEPS = 100
-        TRAIN_STRATEGY = "single"
-
         result = job.run(
             model_display_name=args.model_display_name,
-            args=["--epochs=" + str(EPOCHS), "--steps=" + str(STEPS), "--distribute=" + TRAIN_STRATEGY],
             replica_count=1,
             machine_type=TRAIN_COMPUTE,
             accelerator_count=0)
             
         result.wait()
-
 
 
 #     elif args.mode == 'compile-pipeline':

@@ -92,7 +92,7 @@ model.summary()
 # +
 model = build_model()
 
-EPOCHS = 1
+EPOCHS = 2
 
 # The patience parameter is the amount of epochs to check for improvement
 early_stop = tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=10)

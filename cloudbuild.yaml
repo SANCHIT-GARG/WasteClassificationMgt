@@ -3,9 +3,8 @@ steps:
 # Clone the repository.
 - name: 'gcr.io/cloud-builders/git'
   args: ['clone', 'https://github.com/SANCHIT-GARG/WasteClassificationMgt.git']
-#   args: ['clone', '--single-branch', '--branch',
-#          'main', 'https://github.com/SANCHIT-GARG/WasteClassificationMgt',
-#          '--depth', '1',
-#          '--verbose']
   id: 'Clone Repository'
 
+# Build a docker image
+ - name: 'gcr.io/cloud-builders/docker'
+   args: [ 'build', '-t', 'gcr.io/$PROJECT_ID/wcm', 'Dockerfile', '.' ]

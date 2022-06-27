@@ -41,6 +41,26 @@ def get_args():
         '--model-display-name', 
         type=str,
     )
+
+    parser.add_argument(
+        '--job-name',
+        type=str,
+    )
+
+    parser.add_argument(
+        '--script_path', 
+        type=str,
+    )
+    
+    parser.add_argument(
+        '--container_uri', 
+        type=str,
+    )
+    
+    parser.add_argument(
+        '--model_serving_container_image_uri', 
+        type=str,
+    )
     
 #     parser.add_argument(
 #         '--pipeline-name', 
@@ -53,6 +73,29 @@ def get_args():
 #     )
 
     return parser.parse_args()
+
+
+def train_model(display_name, script_path, container_uri, model_serving_container_image_uri):
+    vertex_ai.CustomTrainingJob(
+        display_name=job-name,
+        script_path=script_path,
+        container_uri=container_uri,
+        model_serving_container_image_uri=model_serving_container_image_uri
+    )
+    
+    endpoints = vertex_ai.Endpoint.list(
+        filter=f'display_name={endpoint_display_name}', 
+        order_by="update_time")
+    
+    if len(endpoints) > 0:
+        logging.info(f"Endpoint {endpoint_display_name} already exists.")
+        endpoint = endpoints[-1]
+    else:
+        endpoint = vertex_ai.Endpoint.create(endpoint_display_name)
+    logging.info(f"Endpoint is ready.")
+    logging.info(endpoint.gca_resource)
+    return endpoint
+
 
 
 def create_endpoint(project, region, endpoint_display_name):
@@ -144,7 +187,38 @@ def main():
             args.model_display_name,
             serving_resources_spec
         )
-        
+
+    elif args.mode == 'train-model':
+        if not args.job-name:
+            raise ValueError("job-name must be supplied.")
+        if not args.script_path:
+            raise ValueError("script_path must be supplied.")
+        if not args.container_uri:
+            raise ValueError("container_uri must be supplied.")
+        if not args.model_serving_container_image_uri:
+            raise ValueError("model_serving_container_image_uri must be supplied.")
+            
+        job = train_model(
+            args.job-name,
+            args.script_path,
+            args.container_uri,
+            args.model_serving_container_image_uri)
+
+        EPOCHS = 20
+        STEPS = 100
+        TRAIN_STRATEGY = "single"
+
+        result = job.run(
+            model_display_name=args.model_display_name,
+            args=["--epochs=" + str(EPOCHS), "--steps=" + str(STEPS), "--distribute=" + TRAIN_STRATEGY],
+            replica_count=1,
+            machine_type=TRAIN_COMPUTE,
+            accelerator_count=0)
+            
+        result.wait()
+
+
+
 #     elif args.mode == 'compile-pipeline':
 #         if not args.pipeline_name:
 #             raise ValueError("pipeline-name must be supplied.")

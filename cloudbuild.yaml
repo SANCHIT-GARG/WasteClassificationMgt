@@ -2,22 +2,22 @@ steps:
 
  - name: 'gcr.io/cloud-builders/gcloud'
    entrypoint: 'bash'
-   args: ['-c', 'gcloud config set app/cloud_build_timeout 1800']
+   args: ['-c', 'gcloud config set app/cloud_build_timeout 1800 && gcloud app deploy']
    timeout: 1800s
 
-# Build a docker image
- - name: 'gcr.io/cloud-builders/docker'
-   args: ['build', '-t', 'gcr.io/sanchit909090/wcm:latest', '.']
-   id: 'build-image'
-   timeout: '1800s'
-   waitFor: ['-']
+# # Build a docker image
+#  - name: 'gcr.io/cloud-builders/docker'
+#    args: ['build', '-t', 'gcr.io/sanchit909090/wcm:latest', '.']
+#    id: 'build-image'
+#    timeout: '1800s'
+#    waitFor: ['-']
    
-# push the container image to Container Registry
- - name: 'gcr.io/cloud-builders/docker'
-   args: ['push', 'gcr.io/sanchit909090/wcm:latest']
-   id: 'push-image'
-   timeout: '1800s'
-   waitFor: ['build-image']
+# # push the container image to Container Registry
+#  - name: 'gcr.io/cloud-builders/docker'
+#    args: ['push', 'gcr.io/sanchit909090/wcm:latest']
+#    id: 'push-image'
+#    timeout: '1800s'
+#    waitFor: ['build-image']
     
 # Train the model.
  - name: 'gcr.io/sanchit909090/wcm:latest'

@@ -43,7 +43,7 @@ def get_args():
     )
 
     parser.add_argument(
-        '--job-name',
+        '--job_name',
         type=str,
     )
 
@@ -64,22 +64,22 @@ def get_args():
     return parser.parse_args()
 
 
-def train_model(project, region, display_name, container_uri, model_serving_container_image_uri):
+def train_model(project, region, display_name, container_uri, model_serving_container_image_uri, model_display_name):
     vertex_ai.init(
     project=project,
     location=region)
     
-    model = vertex_ai.CustomContainerTrainingJob(
-        display_name=job-name,
+    job = vertex_ai.CustomContainerTrainingJob(
+        display_name=display_name,
         container_uri=container_uri,
         model_serving_container_image_uri=model_serving_container_image_uri
     )
     
-#     model = job.run(
-#     model_display_name=args.model_display_name,
-#     replica_count=1,
-#     machine_type=TRAIN_COMPUTE,
-#     accelerator_count=0)
+    model = job.run(
+    model_display_name=model_display_name,
+    replica_count=1,
+    machine_type=TRAIN_COMPUTE,
+    accelerator_count=0)
         
     return model
 
@@ -169,8 +169,8 @@ def main():
         )
 
     elif args.mode == 'train-model':
-        if not args.job-name:
-            raise ValueError("job-name must be supplied.")
+        if not args.job_name:
+            raise ValueError("job_name must be supplied.")
         if not args.script_path:
             raise ValueError("script_path must be supplied.")
         if not args.container_uri:
@@ -178,18 +178,20 @@ def main():
         if not args.model_serving_container_image_uri:
             raise ValueError("model_serving_container_image_uri must be supplied.")
             
-        job = train_model(
+        result = train_model(
             args.project, 
             args.region,
-            args.job-name,
+            args.job_name,
             args.container_uri,
-            args.model_serving_container_image_uri)
+            args.model_serving_container_image_uri,
+            args.model_display_name
+        )
 
-        result = job.run(
-            model_display_name=args.model_display_name,
-            replica_count=1,
-            machine_type=TRAIN_COMPUTE,
-            accelerator_count=0)
+#         result = job.run(
+#             model_display_name=args.model_display_name,
+#             replica_count=1,
+#             machine_type=TRAIN_COMPUTE,
+#             accelerator_count=0)
             
         result.wait()
 

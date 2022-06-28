@@ -21,7 +21,7 @@ steps:
           '--region', 'us-central1',
           '--job_name', 'custom_training',
           '--container_uri', 'gcr.io/sanchit909090/wcm:latest',
-          '--model_serving_container_image_uri', 'gs://sanchit909090-bucket/wcm/model',
+          '--model_serving_container_image_uri', 'gcr.io/sanchit909090/model',
           '--model_display_name', 'wcm-model']
    id: 'Train Model'
 #    waitFor: ['push-image']

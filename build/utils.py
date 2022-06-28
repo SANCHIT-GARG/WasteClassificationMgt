@@ -33,12 +33,12 @@ def get_args():
     )
     
     parser.add_argument(
-        '--endpoint-display-name', 
+        '--endpoint_display_name', 
         type=str,
     )
 
     parser.add_argument(
-        '--model-display-name', 
+        '--model_display_name', 
         type=str,
     )
 
@@ -153,9 +153,9 @@ def main():
         if not args.region:
             raise ValueError("region must be supplied.")
         if not args.endpoint_display_name:
-            raise ValueError("endpoint-display-name must be supplied.")
+            raise ValueError("endpoint_display_name must be supplied.")
         if not args.model_display_name:
-            raise ValueError("model-display-name must be supplied.")
+            raise ValueError("model_display_name must be supplied.")
             
         with open(SERVING_SPEC_FILEPATH) as json_file:
             serving_resources_spec = json.load(json_file)

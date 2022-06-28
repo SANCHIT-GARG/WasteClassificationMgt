@@ -18,7 +18,6 @@ steps:
    id: 'push-image'
    timeout: '1800s'
    waitFor: ['build-image']
-timeout: 1800s
 
 # Train the model.
  - name: 'gcr.io/sanchit909090/wcm:latest'
@@ -34,7 +33,6 @@ timeout: 1800s
    timeout: '1800s'
    id: 'Train Model'
    waitFor: ['push-image']
-timeout: 1800s
 
 # Create an endpoint.
  - name: 'gcr.io/sanchit909090/wcm:latest'
@@ -47,7 +45,6 @@ timeout: 1800s
    timeout: '1800s'
    id: 'Create Endpoint'
    waitFor: ['Train Model']
-timeout: 1800s
 
 # Deploy the model.
  - name: 'gcr.io/sanchit909090/wcm:latest'
@@ -61,7 +58,7 @@ timeout: 1800s
    timeout: '1800s'
    id: 'Deploy Endpoint'
    waitFor: ['Create Endpoint']
-timeout: 1800s
 
+timeout: 1800s
 images:
  - 'gcr.io/sanchit909090/wcm:latest'

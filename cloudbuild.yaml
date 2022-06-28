@@ -1,9 +1,9 @@
 steps:
 
-- name: 'gcr.io/cloud-builders/gcloud'
-  entrypoint: 'bash'
-  args: ['-c', 'gcloud config set app/cloud_build_timeout 1800']
-timeout: 1800s
+ - name: 'gcr.io/cloud-builders/gcloud'
+   entrypoint: 'bash'
+   args: ['-c', 'gcloud config set app/cloud_build_timeout 1800']
+   timeout: 1800s
 
 # Build a docker image
  - name: 'gcr.io/cloud-builders/docker'

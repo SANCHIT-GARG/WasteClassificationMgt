@@ -1,16 +1,16 @@
 steps:
 
-# Build a docker image
- - name: 'gcr.io/cloud-builders/docker'
-   args: ['build', '-t', 'gcr.io/sanchit909090/wcm:latest', '.']
-   id: 'build-image'
-   waitFor: ['-']
+# # Build a docker image
+#  - name: 'gcr.io/cloud-builders/docker'
+#    args: ['build', '-t', 'gcr.io/sanchit909090/wcm:latest', '.']
+#    id: 'build-image'
+#    waitFor: ['-']
    
-# push the container image to Container Registry
- - name: 'gcr.io/cloud-builders/docker'
-   args: ['push', 'gcr.io/sanchit909090/wcm:latest']
-   id: 'push-image'
-   waitFor: ['build-image']
+# # push the container image to Container Registry
+#  - name: 'gcr.io/cloud-builders/docker'
+#    args: ['push', 'gcr.io/sanchit909090/wcm:latest']
+#    id: 'push-image'
+#    waitFor: ['build-image']
     
 # Train the model.
  - name: 'gcr.io/sanchit909090/wcm:latest'
@@ -24,7 +24,7 @@ steps:
           '--model_serving_container_image_uri', 'gcr.io/sanchit909090/serving:latest',
           '--model_display_name', 'wcm-model']
    id: 'Train Model'
-   waitFor: ['push-image']
+#    waitFor: ['push-image']
 
 # Create an endpoint.
  - name: 'gcr.io/sanchit909090/wcm:latest'

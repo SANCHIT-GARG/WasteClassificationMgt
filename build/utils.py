@@ -165,6 +165,7 @@ def main():
 
     elif args.mode == 'train-model':
         if not args.job_name:
+            raise ValueError("job_name must be supplied.")
         if not args.container_uri:
             raise ValueError("container_uri must be supplied.")
         if not args.model_serving_container_image_uri:
@@ -179,12 +180,6 @@ def main():
             args.model_display_name
         )
 
-#         result = job.run(
-#             model_display_name=args.model_display_name,
-#             replica_count=1,
-#             machine_type=TRAIN_COMPUTE,
-#             accelerator_count=0)
-            
         result.wait()
 
     else:

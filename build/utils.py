@@ -79,7 +79,6 @@ def train_model(project, region, display_name, container_uri, model_serving_cont
     model = job.run(
     model_display_name=model_display_name,
     replica_count=1,
-    machine_type=TRAIN_COMPUTE,
     accelerator_count=0)
         
     return model

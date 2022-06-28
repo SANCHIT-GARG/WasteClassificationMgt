@@ -35,28 +35,28 @@ steps:
 #    waitFor: ['push-image']
 
 # Create an endpoint.
- - name: 'gcr.io/sanchit909090/wcm:latest'
-   entrypoint: 'python'
-   args: ['build/utils.py',
-          '--mode', 'create-endpoint',
-          '--project', 'sanchit909090',
-          '--region', 'us-central1',
-          '--endpoint_display_name', 'wcm-endpoint']
-   timeout: '1800s'
-   id: 'Create Endpoint'
-#    waitFor: ['Train Model']
-   
-# # Deploy the model.
 #  - name: 'gcr.io/sanchit909090/wcm:latest'
 #    entrypoint: 'python'
 #    args: ['build/utils.py',
-#           '--mode', 'deploy-model',
+#           '--mode', 'create-endpoint',
 #           '--project', 'sanchit909090',
 #           '--region', 'us-central1',
-#           '--endpoint_display_name', 'wcm-endpoint',
-#           '--model_display_name', 'wcm-model']
+#           '--endpoint_display_name', 'wcm-endpoint']
 #    timeout: '1800s'
-#    id: 'Deploy Endpoint'
+#    id: 'Create Endpoint'
+#    waitFor: ['Train Model']
+   
+# # Deploy the model.
+ - name: 'gcr.io/sanchit909090/wcm:latest'
+   entrypoint: 'python'
+   args: ['build/utils.py',
+          '--mode', 'deploy-model',
+          '--project', 'sanchit909090',
+          '--region', 'us-central1',
+          '--endpoint_display_name', 'wcm-endpoint',
+          '--model_display_name', 'wcm-model']
+   timeout: '1800s'
+   id: 'Deploy Endpoint'
 # #    waitFor: ['Create Endpoint']
 
 images:

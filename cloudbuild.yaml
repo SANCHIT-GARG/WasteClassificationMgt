@@ -1,52 +1,55 @@
 steps:
 
 #  - name: 'gcr.io/cloud-builders/gcloud'
-#    entrypoint: 'bash'
-#    args: ['-c', 'gcloud config set app/cloud_build_timeout 1800']
-#    timeout: 1800s
+   entrypoint: 'bash'
+   args: ['-c', 'gcloud config set app/cloud_build_timeout 1800']
+   timeout: 1800s
 
-# # Build a docker image
-#  - name: 'gcr.io/cloud-builders/docker'
-#    args: ['build', '-t', 'gcr.io/sanchit909090/wcm:latest', '.']
-#    id: 'build-image'
-#    timeout: '1800s'
-#    waitFor: ['-']
+# Build a docker image
+ - name: 'gcr.io/cloud-builders/docker'
+   args: ['build', '-t', 'gcr.io/sanchit909090/wcm:latest', '.']
+   id: 'build-image'
+   timeout: '1800s'
+   waitFor: ['-']
    
-# # push the container image to Container Registry
-#  - name: 'gcr.io/cloud-builders/docker'
-#    args: ['push', 'gcr.io/sanchit909090/wcm:latest']
-#    id: 'push-image'
-#    timeout: '1800s'
-#    waitFor: ['build-image']
-    
+# push the container image to Container Registry
+ - name: 'gcr.io/cloud-builders/docker'
+   args: ['push', 'gcr.io/sanchit909090/wcm:latest']
+   id: 'push-image'
+   timeout: '1800s'
+   waitFor: ['build-image']
+timeout: 1800s
+
 # Train the model.
-#  - name: 'gcr.io/sanchit909090/wcm:latest'
-#    entrypoint: 'python'
-#    args: ['build/utils.py',
-#           '--mode', 'train-model',
-#           '--project', 'sanchit909090',
-#           '--region', 'us-central1',
-#           '--job_name', 'custom_training',
-#           '--container_uri', 'gcr.io/sanchit909090/wcm:latest',
-#           '--model_serving_container_image_uri', 'gcr.io/sanchit909090/wcm:latest',
-#           '--model_display_name', 'wcm-model']
-#    timeout: '1800s'
-#    id: 'Train Model'
-#    waitFor: ['push-image']
+ - name: 'gcr.io/sanchit909090/wcm:latest'
+   entrypoint: 'python'
+   args: ['build/utils.py',
+          '--mode', 'train-model',
+          '--project', 'sanchit909090',
+          '--region', 'us-central1',
+          '--job_name', 'custom_training',
+          '--container_uri', 'gcr.io/sanchit909090/wcm:latest',
+          '--model_serving_container_image_uri', 'gcr.io/sanchit909090/wcm:latest',
+          '--model_display_name', 'wcm-model']
+   timeout: '1800s'
+   id: 'Train Model'
+   waitFor: ['push-image']
+timeout: 1800s
 
 # Create an endpoint.
-#  - name: 'gcr.io/sanchit909090/wcm:latest'
-#    entrypoint: 'python'
-#    args: ['build/utils.py',
-#           '--mode', 'create-endpoint',
-#           '--project', 'sanchit909090',
-#           '--region', 'us-central1',
-#           '--endpoint_display_name', 'wcm-endpoint']
-#    timeout: '1800s'
-#    id: 'Create Endpoint'
-#    waitFor: ['Train Model']
-   
-# # Deploy the model.
+ - name: 'gcr.io/sanchit909090/wcm:latest'
+   entrypoint: 'python'
+   args: ['build/utils.py',
+          '--mode', 'create-endpoint',
+          '--project', 'sanchit909090',
+          '--region', 'us-central1',
+          '--endpoint_display_name', 'wcm-endpoint']
+   timeout: '1800s'
+   id: 'Create Endpoint'
+   waitFor: ['Train Model']
+timeout: 1800s
+
+# Deploy the model.
  - name: 'gcr.io/sanchit909090/wcm:latest'
    entrypoint: 'python'
    args: ['build/utils.py',
@@ -57,7 +60,8 @@ steps:
           '--model_display_name', 'wcm-model']
    timeout: '1800s'
    id: 'Deploy Endpoint'
-# #    waitFor: ['Create Endpoint']
+   waitFor: ['Create Endpoint']
+timeout: 1800s
 
 images:
  - 'gcr.io/sanchit909090/wcm:latest'

@@ -46,11 +46,6 @@ def get_args():
         '--job_name',
         type=str,
     )
-
-    parser.add_argument(
-        '--script_path', 
-        type=str,
-    )
     
     parser.add_argument(
         '--container_uri', 
@@ -170,9 +165,6 @@ def main():
 
     elif args.mode == 'train-model':
         if not args.job_name:
-            raise ValueError("job_name must be supplied.")
-        if not args.script_path:
-            raise ValueError("script_path must be supplied.")
         if not args.container_uri:
             raise ValueError("container_uri must be supplied.")
         if not args.model_serving_container_image_uri:

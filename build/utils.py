@@ -108,11 +108,11 @@ def deploy_model(project, region, endpoint_display_name, model_display_name, ser
         location=region
     )
     
-#     model = vertex_ai.Model.list(
-#         filter=f'display_name={model_display_name}',
-#         order_by="update_time"
-#     )[-1]
-    model = vertex_ai.Model(model_name = model_display_name)
+    model = vertex_ai.Model.list(
+        filter=f'display_name={model_display_name}',
+        order_by="update_time"
+    )[-1]
+#     model = vertex_ai.Model(model_name = model_display_name)
     
     endpoint = vertex_ai.Endpoint.list(
         filter=f'display_name={endpoint_display_name}',

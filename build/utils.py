@@ -67,7 +67,8 @@ def get_args():
 def train_model(project, region, display_name, container_uri, model_serving_container_image_uri, model_display_name):
     vertex_ai.init(
     project=project,
-    location=region)
+    location=region,
+    staging_bucket='gs://sanchit909090-bucket')
     
     job = vertex_ai.CustomContainerTrainingJob(
         display_name=display_name,

@@ -61,42 +61,15 @@ def get_args():
         '--model_serving_container_image_uri', 
         type=str,
     )
-    
-#     parser.add_argument(
-#         '--pipeline-name', 
-#         type=str,
-#     )
-    
-#     parser.add_argument(
-#         '--pipelines-store', 
-#         type=str,
-#     )
-
     return parser.parse_args()
 
 
 def train_model(display_name, script_path, container_uri, model_serving_container_image_uri):
-    model = vertex_ai.CustomTrainingJob(
+    model = vertex_ai.CustomContainerTrainingJob(
         display_name=job-name,
-        script_path=script_path,
-        container_uri=container_uri,
-        model_serving_container_image_uri=model_serving_container_image_uri
+        container_uri=container_uri
     )
-    
-#     endpoints = vertex_ai.Endpoint.list(
-#         filter=f'display_name={endpoint_display_name}', 
-#         order_by="update_time")
-    
-#     if len(endpoints) > 0:
-#         logging.info(f"Endpoint {endpoint_display_name} already exists.")
-#         endpoint = endpoints[-1]
-#     else:
-#         endpoint = vertex_ai.Endpoint.create(endpoint_display_name)
-#     logging.info(f"Endpoint is ready.")
-#     logging.info(endpoint.gca_resource)
-#     return endpoint
     return model
-
 
 
 def create_endpoint(project, region, endpoint_display_name):
@@ -143,14 +116,6 @@ def deploy_model(project, region, endpoint_display_name, model_display_name, ser
     logging.info(f"Model is deployed.")
     logging.info(deployed_model)
     return deployed_model
-
-
-# def compile_pipeline(pipeline_name):
-#     from src.tfx_pipelines import runner
-#     pipeline_definition_file = f"{pipeline_name}.json"
-#     pipeline_definition = runner.compile_training_pipeline(pipeline_definition_file)
-#     return pipeline_definition
-
     
 
 def main():
@@ -214,13 +179,6 @@ def main():
             accelerator_count=0)
             
         result.wait()
-
-
-#     elif args.mode == 'compile-pipeline':
-#         if not args.pipeline_name:
-#             raise ValueError("pipeline-name must be supplied.")
-            
-#         result = compile_pipeline(args.pipeline_name)
 
     else:
         raise ValueError(f"Invalid mode {args.mode}.")

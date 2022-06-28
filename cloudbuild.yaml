@@ -20,9 +20,8 @@ steps:
           '--project', 'sanchit909090',
           '--region', 'us-central1',
           '--job_name', 'custom_training',
-          '--script_path', 'https://raw.githubusercontent.com/SANCHIT-GARG/WasteClassificationMgt/main/build/task.py',
           '--container_uri', 'gcr.io/sanchit909090/wcm:latest',
-          '--model_serving_container_image_uri', 'us-docker.pkg.dev/vertex-ai/prediction/tf2-cpu.2-8:latest',
+          '--model_serving_container_image_uri', 'gcr.io/sanchit909090/serving:latest',
           '--model_display_name', 'wcm-model']
    id: 'Train Model'
    waitFor: ['push-image']

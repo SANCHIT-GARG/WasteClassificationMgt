@@ -74,7 +74,8 @@ def train_model(project, region, display_name, container_uri, model_serving_cont
     model = job.run(
     model_display_name=model_display_name,
     replica_count=1,
-    accelerator_count=0)
+    accelerator_count=0,
+    base_output_dir='gs://sanchit909090-bucket/wcm/model')
         
     return model
 

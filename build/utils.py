@@ -59,7 +59,7 @@ def get_args():
     return parser.parse_args()
 
 
-def train_model(project, region, display_name, container_uri, model_serving_container_image_uri, model_display_name):
+def train_model(project, region, display_name, container_uri, model_display_name):
     vertex_ai.init(
     project=project,
     location=region,

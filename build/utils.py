@@ -64,11 +64,23 @@ def get_args():
     return parser.parse_args()
 
 
-def train_model(display_name, script_path, container_uri, model_serving_container_image_uri):
+def train_model(project, region, display_name, container_uri, model_serving_container_image_uri):
+    vertex_ai.init(
+    project=project,
+    location=region)
+    
     model = vertex_ai.CustomContainerTrainingJob(
         display_name=job-name,
-        container_uri=container_uri
+        container_uri=container_uri,
+        model_serving_container_image_uri=model_serving_container_image_uri
     )
+    
+#     model = job.run(
+#     model_display_name=args.model_display_name,
+#     replica_count=1,
+#     machine_type=TRAIN_COMPUTE,
+#     accelerator_count=0)
+        
     return model
 
 
@@ -167,8 +179,9 @@ def main():
             raise ValueError("model_serving_container_image_uri must be supplied.")
             
         job = train_model(
+            args.project, 
+            args.region,
             args.job-name,
-            args.script_path,
             args.container_uri,
             args.model_serving_container_image_uri)
 

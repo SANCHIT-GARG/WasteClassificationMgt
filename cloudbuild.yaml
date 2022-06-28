@@ -15,7 +15,7 @@ steps:
 # Train the model.
  - name: 'gcr.io/sanchit909090/wcm:latest'
    entrypoint: 'python'
-   args: ['build/task.py',
+   args: ['build/utils.py',
           '--mode', 'train-model',
           '--project', 'sanchit909090',
           '--region', 'us-central1',

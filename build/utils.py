@@ -12,7 +12,7 @@ SCRIPT_DIR = os.path.dirname(
 )
 sys.path.append(os.path.normpath(os.path.join(SCRIPT_DIR, "..")))
 
-SERVING_SPEC_FILEPATH = 'build/serving_resources_spec.json'
+# SERVING_SPEC_FILEPATH = 'build/serving_resources_spec.json'
 
 def get_args():
     parser = argparse.ArgumentParser()
@@ -101,7 +101,7 @@ def create_endpoint(project, region, endpoint_display_name):
     return endpoint
 
 
-def deploy_model(project, region, endpoint_display_name, model_display_name, serving_resources_spec):
+def deploy_model(project, region, endpoint_display_name, model_display_name):
     logging.info(f"Deploying model {model_display_name} to endpoint {endpoint_display_name}")
     vertex_ai.init(
         project=project,
@@ -119,7 +119,11 @@ def deploy_model(project, region, endpoint_display_name, model_display_name, ser
         order_by="update_time"
     )[-1]
 
-    deployed_model = endpoint.deploy(model=model, **serving_resources_spec)
+    deployed_model = endpoint.deploy(model=model, "traffic_percentage": 100, "machine_type": "n1-standard-4", 
+                                     "accelerator_type": null, "accelerator_count": null)
+#     "min_replica_count": 1,
+#     "max_replica_count": 1,
+                                    
 #     model.deploy(model=model, **serving_resources_spec)
     logging.info(f"Model is deployed.")
     logging.info(deployed_model)
@@ -160,8 +164,8 @@ def main():
             args.project, 
             args.region, 
             args.endpoint_display_name, 
-            args.model_display_name,
-            serving_resources_spec
+            args.model_display_name
+#             ,serving_resources_spec
         )
 
     elif args.mode == 'train-model':

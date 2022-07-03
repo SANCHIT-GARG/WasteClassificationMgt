@@ -12,8 +12,6 @@ SCRIPT_DIR = os.path.dirname(
 )
 sys.path.append(os.path.normpath(os.path.join(SCRIPT_DIR, "..")))
 
-# SERVING_SPEC_FILEPATH = 'build/serving_resources_spec.json'
-
 def get_args():
     parser = argparse.ArgumentParser()
 
@@ -112,7 +110,6 @@ def deploy_model(project, region, endpoint_display_name, model_display_name):
         filter=f'display_name={model_display_name}',
         order_by="update_time"
     )[-1]
-#     model = vertex_ai.Model(model_name = model_display_name)
     
     endpoint = vertex_ai.Endpoint.list(
         filter=f'display_name={endpoint_display_name}',
@@ -120,11 +117,7 @@ def deploy_model(project, region, endpoint_display_name, model_display_name):
     )[-1]
 
     deployed_model = endpoint.deploy(model=model, traffic_percentage = 100, machine_type = "n1-standard-4") 
-#                                      ,accelerator_type = None, accelerator_count = None
-#     "min_replica_count": 1,
-#     "max_replica_count": 1,
-                                    
-#     model.deploy(model=model, **serving_resources_spec)
+
     logging.info(f"Model is deployed.")
     logging.info(deployed_model)
     return deployed_model
@@ -157,15 +150,11 @@ def main():
         if not args.model_display_name:
             raise ValueError("model_display_name must be supplied.")
             
-#         with open(SERVING_SPEC_FILEPATH) as json_file:
-#             serving_resources_spec = json.load(json_file)
-#         logging.info(f"serving resources: {serving_resources_spec}")
         result = deploy_model(
             args.project, 
             args.region, 
             args.endpoint_display_name, 
             args.model_display_name
-#             ,serving_resources_spec
         )
 
     elif args.mode == 'train-model':

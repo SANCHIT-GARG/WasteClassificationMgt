@@ -1,4 +1,5 @@
-FROM gcr.io/deeplearning-platform-release/tf-cpu.2-8
+# FROM gcr.io/deeplearning-platform-release/tf-cpu.2-8
+FROM us-docker.pkg.dev/vertex-ai/training/tf-cpu.2-8
 WORKDIR /
 
 # Copies the trainer code to the docker image.

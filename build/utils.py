@@ -157,9 +157,9 @@ def main():
         if not args.model_display_name:
             raise ValueError("model_display_name must be supplied.")
             
-        with open(SERVING_SPEC_FILEPATH) as json_file:
-            serving_resources_spec = json.load(json_file)
-        logging.info(f"serving resources: {serving_resources_spec}")
+#         with open(SERVING_SPEC_FILEPATH) as json_file:
+#             serving_resources_spec = json.load(json_file)
+#         logging.info(f"serving resources: {serving_resources_spec}")
         result = deploy_model(
             args.project, 
             args.region, 

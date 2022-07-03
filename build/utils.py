@@ -119,8 +119,8 @@ def deploy_model(project, region, endpoint_display_name, model_display_name):
         order_by="update_time"
     )[-1]
 
-    deployed_model = endpoint.deploy(model=model, "traffic_percentage": 100, "machine_type": "n1-standard-4", 
-                                     "accelerator_type": null, "accelerator_count": null)
+    deployed_model = endpoint.deploy(model=model, traffic_percentage = 100, machine_type = "n1-standard-4", 
+                                     accelerator_type = null, accelerator_count = null)
 #     "min_replica_count": 1,
 #     "max_replica_count": 1,
                                     

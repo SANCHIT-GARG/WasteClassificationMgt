@@ -57,7 +57,7 @@ steps:
           '--model_display_name', 'wcm-model']
    timeout: '2400s'
    id: 'Deploy Endpoint'
-#    waitFor: ['Create Endpoint']
+   waitFor: ['Create Endpoint']
 
 timeout: 2400s
 images:
